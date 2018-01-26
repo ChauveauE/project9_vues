@@ -6,7 +6,36 @@
     <title>project9_vues</title>
   </head>
   <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <div id="app">
+	  <ul>
+	  	<li v-for="todo in todos">
+	  		{{ todo.label }}
+	  	</li>
+	  </ul>
+	</div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+    	let xhr = new XMLHttpRequest(); 
+    	xhr.open("GET","http://localhost:8000/api/todos",true);
+		xhr.send(null);
+
+    	const app = new Vue({
+		  el: '#app',
+		  data: {
+		    message: 'Todo List!',
+		    todos : [
+		    	{ id : 1, label : 'do this'},
+		    	{ id : 2, label : 'do that'},
+		    ]
+		    
+		  }
+		})
+	</script>
   </body>
 </html>
+
+
+https://docs.aws.amazon.com/fr_fr/apigateway/latest/developerguide/how-to-cors.html
+https://www.codeschool.com/discuss/t/how-to-solve-no-access-control-allow-origin-header-is-present-on-the-requested-resource-origin-null-is-therefore-not-allowed-access-in-angular-js/28989
+http://www.journaldunet.com/web-tech/developpement/1202403-xmlhttprequest-sur-un-domaine-different-comment-parametrer-access-control-allow-origin/
+https://enable-cors.org/server.html
