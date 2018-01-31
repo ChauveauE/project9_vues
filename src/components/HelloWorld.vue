@@ -81,26 +81,32 @@
       </li>
     </ul>
 
-    <ul v-if="posts && posts.length">
+    <!--<ul v-if="posts && posts.length">-->
      <li v-for="post of posts">
        <p><strong>{{post.title}}</strong></p>
        <p>{{post.body}}</p>
      </li>
-    </ul>
+    <!--</ul>
 
-    <ul v-if="errors && errors.length">
+    <ul v-if="errors && errors.length"> -->
       <li v-for="error of errors">
         {{error.message}}
       </li>
-    </ul>
+    <!--</ul>-->
 
     <input type="text" v-model="postBody" @change="postPost()"/>
-    <ul v-if="errors && errors.length">
+    <!--<ul v-if="errors && errors.length"> -->
       <li v-for="error of errors">
         {{error.message}}
       </li>
-    </ul>
+    <!--</ul> -->
   </div>
+
+    <ul>
+      <li v-for="todo in todos" v-bind:key='todo.id'>
+         {{ todo.id }} => {{ todo.label }}
+      </li>
+    </ul>
 </template>
 
 <script>
@@ -113,34 +119,38 @@ export default {
       return {
         msg: 'Todo list',
         postBody: '',
-        posts: [],
-        errors: []
+        todos: []
       }
     },
 
     created() {
-      axios.get(`http://jsonplaceholder.typicode.com/posts`)
+      axios.get('http://localhost:8000/api/todos')
       .then(response => {
         // JSON responses are automatically parsed.
-        this.posts = response.data
+        this.todos = response.data
       })
       .catch(e => {
-        this.errors.push(e)
+        //this.errors.push(e)
+        console.log(e)
       })
     } 
 
     // Pushes posts to the server when called.
-    postPost() {
-      axios.post(`http://jsonplaceholder.typicode.com/posts`, {
-        body: this.postBody
-      })
-      .then(response => {})
-      .catch(e => {
-        this.errors.push(e)
-      })
+//      postPost() {
+//      axios.post(`http://jsonplaceholder.typicode.com/posts`, {
+//        body: this.postBody
+//      })
+//      .then(response => {})
+//      .catch(e => {
+//        this.errors.push(e)
+//      })
 
-    }
+//    }
 }
+
+
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
